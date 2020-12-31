@@ -9,9 +9,12 @@ repository = "https://github.com/sithankanna/hts-forecast"
 authors = ["Sithan Kanna <sithankanna@gmail.com>"]
 keywords = ["time-series"]
 
+[tool.poetry.scripts]
+hts-forecast = "hts_forecast.src.console:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+click = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 
