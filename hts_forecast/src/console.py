@@ -7,4 +7,4 @@ from . import __version__
 @click.version_option(version=__version__)
 def main():
     """The hts-project."""
-    click.echo("Hello, world!")
+    click.echo("Hello, world!!!")
