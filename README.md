@@ -53,3 +53,4 @@ poetry shell
 jupyter-notebook
 ```
 
+$ git clone git://github.com/concordusapps/pyenv-implict.git ~/.pyenv/plugins/pyenv-implict
