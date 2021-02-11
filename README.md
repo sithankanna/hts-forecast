@@ -38,7 +38,7 @@ poetry remove pandas
 
 If you're starting a new shell / session and 
 
-``bash
+```bash
 source ~/.poetry/env
 ```
 
