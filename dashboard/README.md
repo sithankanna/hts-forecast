@@ -22,3 +22,75 @@ server {
         }
 }
 streamlit run dashboard/app.py --server.enableCORS=false
+
+rewrite /my_prefix/(.*) /$1  break;
+
+server {
+    listen 80 default_server;
+    root /home/ubuntu/public_html;
+
+    location /application1 {  }
+
+    location /images {
+        root /home/ubuntu/data;
+    }
+
+    location /stream {
+        rewrite /stream/(.*) /$1 break;
+        proxy_pass http://127.0.0.1:8501/;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_read_timeout 86400;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8501;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_read_timeout 86400;
+   }
+
+
+}
+
+
+sudo nano /etc/nginx/conf.d/server1.conf
+sudo nginx -s reload
+
+server {
+    listen 80 default_server;
+    root /home/ubuntu/public_html;
+
+    location /application1 {  }
+
+    location /images {
+        root /home/ubuntu/data;
+    }
+
+    location /stream/ {
+        rewrite ^/stream/(.*)$ /$1 break;
+        proxy_pass http://127.0.0.1:8501/;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_read_timeout 86400;
+    }
+
+}
+
+
+Setting up nginx
+
+https://www.nginx.com/blog/setting-up-nginx/#open-web-page
+
+
+
+<!-- ## To Do: Dockerize -->
